@@ -9,7 +9,7 @@ abstract class PlatformHelper {
 
   static bool isAndroid(BuildContext context) => Theme.of(context).platform == TargetPlatform.android;
 
-  static bool isMobile(BuildContext context) => isWeb() || isApple(context) || isAndroid(context);
+  static bool isMobile(BuildContext context) => !isWeb() || isApple(context) || isAndroid(context);
 
   static bool isWeb() => kIsWeb /*&& !isMobile()*/;
 
