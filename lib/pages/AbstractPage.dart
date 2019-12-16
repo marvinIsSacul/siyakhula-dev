@@ -17,32 +17,37 @@ abstract class AbstractPage extends StatelessWidget {
 
 
   Widget drawer(BuildContext context) {
-    if (PlatformHelper.isMobile(context) || PlatformHelper.isScreenSmall(context))
-      return Drawer(
-        child: MenuMobileLayout(),
-      );
-    else
+    if (PlatformHelper.isPhone(context) || PlatformHelper.isScreenSmall(context) || PlatformHelper.isScreenExtraSmall(context)) {
+      return MenuMobileLayout();
+    }
+    else {
+      toggleDrawer(context, onlyClose: true);
       return null;
+    }
   }
 
-  void toggleDrawer(BuildContext context) {
+  void toggleDrawer(BuildContext context, {bool onlyClose = false}) {
     final scaffold = Scaffold.of(context);
     if (scaffold.isDrawerOpen) {
       Navigator.of(context).pop();
     }
-    else {
+    else if (!onlyClose) {
       scaffold.openDrawer();
     }
   }
 
   Widget headerAuto(BuildContext context) {
-    return /*PlatformHelper.isWeb() ||*/ PlatformHelper.isScreenExtraLarge(context) || PlatformHelper.isScreenLarge(context)
+    return /*PlatformHelper.isWeb() ||*/ PlatformHelper.isScreenExtraLarge(context) 
+      || PlatformHelper.isScreenLarge(context)
+      || PlatformHelper.isScreenMedium(context)
         ? HeaderWebLayout()
-        : HeaderMobileLayout(this.pageTitle, () => toggleDrawer(context));
+        : HeaderMobileLayout(this.pageTitle, () => this.toggleDrawer(context));
   }
 
   Widget menuAuto(BuildContext context) {
-    return /*PlatformHelper.isWeb() || */PlatformHelper.isScreenExtraLarge(context) || PlatformHelper.isScreenLarge(context)
+    return PlatformHelper.isScreenExtraLarge(context)
+      || PlatformHelper.isScreenLarge(context)
+      || PlatformHelper.isScreenMedium(context)
         ? MenuWebLayout()
         : MenuMobileLayout();
   }

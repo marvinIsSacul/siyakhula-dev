@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../helpers/StyleHelper.dart';
 
@@ -20,7 +21,7 @@ class HeaderMobileLayout extends StatelessWidget {
       child: Row(
         children: <Widget>[
           IconButton(
-            icon: Image.asset("assets/img/menu-icon.png"),
+            icon: Icon(FontAwesomeIcons.bars, color: ColourHelper.white),
             onPressed: this.onMenuPressed,
           ),
           /*Container(

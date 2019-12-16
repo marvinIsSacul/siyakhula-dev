@@ -10,6 +10,26 @@ import '../helpers/PlatformHelper.dart';
 class OurServicesPage extends AbstractPage {
   @protected final String pageTitle = 'Our Services';
 
+  final List<_Service> _services = [
+    _Service(
+      image: "assets/img/academic-coaching.png",
+      heading: "Academic Coaching",
+      description: '''Are you in Soweto, Johannesburg and surrounding areas? We can help you!''',
+      buttonText: "View available jobs",
+      //buttonUrl: "https://www.netguru.com/career"
+    ),
+
+    _Service(
+      image: PlatformHelper.isWeb() ? 'assets/img/bookkeeping-coaching.png' : 'assets/img/bookkeeping-coaching_phone.png',
+      heading: "Bookkeeping Coaching",
+      description: '''
+      To get you to a point where you are able to correctly record your business finances and reliably measure your financial performance from time to time.
+      ''',
+      buttonText: "View available jobs",
+      //buttonUrl: "https://www.netguru.com/career"
+    )
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +38,7 @@ class OurServicesPage extends AbstractPage {
         builder: (context) => Stack(
           children: <Widget>[
             PageIndicatorContainer(
-              length: this._servicesCount,
+              length: this._services.length,
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).size.height * 0.1
               ),
@@ -27,22 +47,8 @@ class OurServicesPage extends AbstractPage {
               indicatorSelectorColor: ColourHelper.white,
               child: PageView(
                 children: [
-                  _myService(
-                    image: "assets/img/academic-coaching.png",
-                    heading: "Academic Coaching",
-                    description: '''Are you in Soweto, Johannesburg and surrounding areas? We can help you!''',
-                    buttonText: "View available jobs",
-                    //buttonUrl: "https://www.netguru.com/career"
-                  ),
-                  _myService(
-                    image: "assets/img/bookkeeping-coaching.png",
-                    heading: "Bookkeeping Coaching",
-                    description: '''
-                    To get you to a point where you are able to correctly record your business finances and reliably measure your financial performance from time to time.
-                    ''',
-                    buttonText: "View available jobs",
-                    //buttonUrl: "https://www.netguru.com/career"
-                  ),
+                  for (_Service service in this._services)
+                    _myService(service),
                 ]
               ),
             ),
@@ -53,7 +59,7 @@ class OurServicesPage extends AbstractPage {
                   || PlatformHelper.isScreenExtraLarge(context)
                   || PlatformHelper.isScreenLarge(context)
                   || PlatformHelper.isScreenExtraLarge(context)
-                  || PlatformHelper.isScreenMedium(context)
+                  //|| PlatformHelper.isScreenMedium(context)
                   )
                   this.menuAuto(context),
               ],
@@ -65,15 +71,7 @@ class OurServicesPage extends AbstractPage {
   }
 
 
-  final int _servicesCount = 2;
-
-  Widget _myService({
-      @required String heading,
-      @required String description,
-      @required String buttonText,
-      @required String image,
-    }) {
-
+  Widget _myService(_Service service) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: DimensionHelper.spacingNormal),
       alignment: AlignmentDirectional.center,
@@ -81,24 +79,24 @@ class OurServicesPage extends AbstractPage {
         color: ColourHelper.blackTransparent1,
         backgroundBlendMode: BlendMode.overlay,
         image: DecorationImage(
-            image: AssetImage(image),
-            fit: BoxFit.cover
-          )
-        ),
+          image: AssetImage(service.image),
+          fit: BoxFit.cover
+        )
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(height: DimensionHelper.spacingLarge),
-          Text(
-            heading,
-            style: StyleHelper.subtitle,
+          SelectableText(
+            service.heading,
+            style: TextStyleHelper.onPageHeading,
             textAlign: TextAlign.center,
           ),
           Container(height: DimensionHelper.spacingLarge),
           Container(
-            child: Text(
-              description,
-              style: StyleHelper.description,
+            child: SelectableText(
+              service.description,
+              style: TextStyleHelper.onPageDescription,
               textAlign: TextAlign.center,
             )
           ),
@@ -124,4 +122,14 @@ class OurServicesPage extends AbstractPage {
       ),
     );
   }
+}
+
+
+class _Service {
+  String image;
+  String heading;
+  String description; 
+  String buttonText;
+
+  _Service({this.image, this.heading, this.description, this.buttonText});
 }

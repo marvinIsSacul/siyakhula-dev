@@ -11,31 +11,38 @@ class MenuWebLayout extends StatelessWidget {
     return Container(
       height: DimensionHelper.menuHeight,
       padding: EdgeInsets.symmetric(
-        vertical: 10, horizontal: MediaQuery.of(context).size.width * 0.11
+        vertical: 10,
+        horizontal: MediaQuery.of(context).size.width * 0.11
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          for (MenuItem item in MenuItem.all()) _normalMenuItem(item, context)
+          for (MenuItem item in MenuItem.primary()) _createMenuItem(item, context),
         ],
       ),
     );
   }
 
-  Widget _normalMenuItem(MenuItem menuItem, BuildContext context) {
+  Widget _createMenuItem(MenuItem menuItem, BuildContext context) {
     return OutlineButton(
       padding: EdgeInsets.symmetric(horizontal: DimensionHelper.spacingNormal),
       child: Container(
-      child: Row(
-        children: [
-          Icon(menuItem.icon),
-          Text(
-            menuItem.title,
-            style: StyleHelper.button,
-          )
-        ]
-      )
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                menuItem.icon,
+                color: ColourHelper.iconPrimary
+              ),
+            ),
+            Text(
+              menuItem.title,
+              style: TextStyleHelper.button,
+            )
+          ]
+        )
       ),
       onPressed: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => menuItem.toPage));

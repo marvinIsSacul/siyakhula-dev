@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../helpers/StyleHelper.dart';
 import './MenuItem.dart';
+import './LinkItem.dart';
 
 
 class MenuMobileLayout extends StatelessWidget {
@@ -8,18 +11,23 @@ class MenuMobileLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       //elevation: 16.0,
-      child: ListView(
-       // padding: EdgeInsets.zero,
-        children: <Widget>[
-          _createHeader(),
-          for (MenuItem item in MenuItem.all())
-            _createMenuItem(item, context),
-          Divider(),
-          ListTile(
-            title: Text('0.0.1'),
-            onTap: () {},
-          ),
-        ],
+      child: Container(
+        decoration: BoxDecoration(
+          color: ColourHelper.blackTransparent1,
+          backgroundBlendMode: BlendMode.darken,
+          //border: 
+        ),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            _createHeader(),
+            for (MenuItem item in MenuItem.primary())
+              _createMenuItem(item, context),
+            Divider(),
+            for (MenuItem item in MenuItem.secondary())
+              _createMenuItem(item, context),
+          ],
+        ),
       ),
     );
   }
@@ -27,15 +35,19 @@ class MenuMobileLayout extends StatelessWidget {
   Widget _createMenuItem(MenuItem item, BuildContext context) {
     return ListTile(
       title: Row(
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Icon(item.icon),
+          Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Icon(item.icon),
+          ),
           Padding(
             padding: EdgeInsets.only(left: 8.0),
             child: Text(item.title),
           )
         ],
       ),
-      onTap: () {
+      onTap: (item.toPage == null) ? null : () {
         //Navigator.of(context).pop();
         Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => item.toPage));
       },
@@ -44,28 +56,33 @@ class MenuMobileLayout extends StatelessWidget {
 
    Widget _createHeader() {
     return DrawerHeader(
-        margin: EdgeInsets.zero,
-        padding: EdgeInsets.zero,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image:  AssetImage('assets/img/sda-logo.png')
-          )
-        ),
-        child: Stack(children: <Widget>[
-          Positioned(
-            bottom: 12.0,
-            left: 16.0,
-            child: Text(
-              "",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w500
-              )
-            )
-          ),
-        ]
+      margin: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image:  AssetImage('assets/img/sda-logo.png')
+        )
+      ),
+      child: Container(
+        padding: EdgeInsets.all(DimensionHelper.spacingSmall),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            for (LinkItem linkItem in LinkItem.all()) 
+              IconButton(
+                icon: Icon(
+                  linkItem.icon,
+                  color: ColourHelper.black,
+                ),
+                onPressed: () async {
+                  await launch(linkItem.url);
+                },
+              ),
+          ],
+        )
       )
     );
   }

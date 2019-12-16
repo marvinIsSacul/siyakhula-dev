@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
 
-abstract class StyleHelper {
-  static final title = TextStyle(color: Color(0x80ffffff), fontSize: 14);
-  static final subtitle = TextStyle(color: Color(0xffffffff), fontSize: 50, fontWeight: FontWeight.bold);
-  static final description = TextStyle(color: Color(0xccffffff), fontSize: 16);
-  static final button = TextStyle(color: Color(0xffffffff), fontSize: 16);
-  static final normal = TextStyle(color: Color(0xffffffff), fontSize: 14, fontWeight: FontWeight.bold);
-  static final greenUnderline = TextStyle(color: ColourHelper.accent, fontSize: 14, decoration: TextDecoration.underline, fontWeight: FontWeight.w800);
-  static final normalBlack = TextStyle(color: Color(0xff000000), fontSize: 14, fontWeight: FontWeight.bold);
-  
-}
 
 abstract class ColourHelper {
   static final accent =  Color(0xff1cd152);
@@ -18,6 +8,17 @@ abstract class ColourHelper {
   static final whiteTransparent1 = Color(0x50ffffff);
   static final white = Color(0xfffffffe);
   static final black = Color(0xff000000);
+  static final iconPrimary = Color(0xfffffffe);
+}
+
+abstract class TextStyleHelper {
+  static final title = TextStyle(color: Color(0x80ffffff), fontSize: 14);
+  static final onPageHeading = TextStyle(color: Color(0xffffffff), fontSize: 50, fontWeight: FontWeight.bold);
+  static final onPageDescription = TextStyle(color: Color(0xccffffff), fontSize: 16);
+  static final button = TextStyle(color: Color(0xffffffff), fontSize: 16);
+  static final normal = TextStyle(color: Color(0xffffffff), fontSize: 14, fontWeight: FontWeight.bold);
+  static final greenUnderline = TextStyle(color: ColourHelper.accent, fontSize: 14, decoration: TextDecoration.underline, fontWeight: FontWeight.w800);
+  static final normalBlack = TextStyle(color: Color(0xff000000), fontSize: 14, fontWeight: FontWeight.bold);
 }
 
 abstract class DimensionHelper {

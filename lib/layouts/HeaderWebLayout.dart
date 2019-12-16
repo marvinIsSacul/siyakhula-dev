@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../helpers/StyleHelper.dart';
 import '../helpers/EnvironmentHelper.dart';
+import './LinkItem.dart';
 
 
 class HeaderWebLayout extends StatelessWidget {
@@ -34,7 +35,7 @@ class HeaderWebLayout extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                _socialMedia('assets/img/facebook.png', EnvironmentHelper.appFacebookPageUrl()),
+                for (LinkItem link in LinkItem.all()) _drawLinkItem(link)
               ],
             ),
           ),
@@ -43,16 +44,22 @@ class HeaderWebLayout extends StatelessWidget {
     );
   }
 
-  _socialMedia(String icon, String url) => Container(
+  Widget _drawLinkItem(LinkItem linkItem) => Container(
     padding: EdgeInsets.symmetric(
       vertical: DimensionHelper.spacingNormal,
       horizontal: DimensionHelper.spacingSmall
     ),
     child: GestureDetector(
       onTap: () async {
-        await launch(url);
+        await launch(linkItem.url);
       },
-      child: Image.asset(icon),
+      /*onDoubleTap: () async {
+
+      },*/
+      child: Icon(
+        linkItem.icon,
+        color: ColourHelper.iconPrimary
+      ),
     )
   );
 }
