@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../helpers/EnvironmentHelper.dart';
 import '../helpers/StyleHelper.dart';
 import './MenuItem.dart';
 import './LinkItem.dart';
@@ -13,8 +14,19 @@ class MenuMobileLayout extends StatelessWidget {
       //elevation: 16.0,
       child: Container(
         decoration: BoxDecoration(
-          color: ColourHelper.blackTransparent1,
-          backgroundBlendMode: BlendMode.darken,
+          color: ColourHelper.lightBlack,
+         // borderRadius: BorderRadius.circular(8.0),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.1, 0.5, 0.7, 0.9],
+            colors: [
+              Colors.black,
+              Colors.black54,
+              Colors.black45,
+              Colors.black38
+            ]
+          )
           //border: 
         ),
         child: ListView(
@@ -23,7 +35,7 @@ class MenuMobileLayout extends StatelessWidget {
             _createHeader(),
             for (MenuItem item in MenuItem.primary())
               _createMenuItem(item, context),
-            Divider(),
+            Divider(thickness: 1.0,),
             for (MenuItem item in MenuItem.secondary())
               _createMenuItem(item, context),
           ],
@@ -39,11 +51,17 @@ class MenuMobileLayout extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20.0),
-            child: Icon(item.icon),
+            child: Icon(
+              item.icon,
+              color: ColourHelper.iconPrimary,
+            ),
           ),
           Padding(
             padding: EdgeInsets.only(left: 8.0),
-            child: Text(item.title),
+            child: Text(
+              item.title,
+              style: TextStyle(color: ColourHelper.white)
+            ),
           )
         ],
       ),
@@ -55,35 +73,51 @@ class MenuMobileLayout extends StatelessWidget {
 }
 
    Widget _createHeader() {
-    return DrawerHeader(
-      margin: EdgeInsets.zero,
-      padding: EdgeInsets.zero,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image:  AssetImage('assets/img/sda-logo.png')
-        )
-      ),
-      child: Container(
+    return Container(
+        height: 64,
         padding: EdgeInsets.all(DimensionHelper.spacingSmall),
-        child: Column(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.0),
+          color: ColourHelper.blackTransparent2
+          //gradient: G (colors: [ColourHelper.blackTransparent1])
+        ),
+        child: Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
+         // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            for (LinkItem linkItem in LinkItem.all()) 
-              IconButton(
-                icon: Icon(
-                  linkItem.icon,
-                  color: ColourHelper.black,
+            Image.asset('assets/img/sda-logo_32.png'),
+            Padding(
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
+                EnvironmentHelper.appNameShort(),
+                style: TextStyle(
+                  color: ColourHelper.white,
+                  fontSize: 26
                 ),
-                onPressed: () async {
-                  await launch(linkItem.url);
-                },
-              ),
+              )
+            ),
+            /*Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.max,
+             // crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                for (LinkItem item in LinkItem.all())
+                  IconButton(
+                    icon: Icon(
+                      item.icon,
+                      color: ColourHelper.iconPrimary
+                    ),
+                    onPressed: () async {
+                      await launch(item.url);
+                    },
+                  )
+              ]
+            )*/
           ],
         )
-      )
-    );
+      );
+    
   }
 }

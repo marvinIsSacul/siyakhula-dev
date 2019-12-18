@@ -15,13 +15,21 @@ class MenuWebLayout extends StatelessWidget {
         vertical: 10,
         horizontal: MediaQuery.of(context).size.width * 0.11
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
+      child: Column(
+        verticalDirection: VerticalDirection.down,
         children: <Widget>[
-          for (MenuItem item in MenuItem.primary()) _createMenuItem(item, context),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              for (MenuItem item in MenuItem.primary()) _createMenuItem(item, context),
+            ],
+          ),
+          /*Container(
+            height: DimensionHelper.menuHeight * 1,
+          )*/
         ],
-      ),
+      )
     );
   }
 
@@ -45,7 +53,7 @@ class MenuWebLayout extends StatelessWidget {
           ]
         )
       ),
-      onPressed: () {
+      onPressed: menuItem.toPage == null ? null : () {
         Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => menuItem.toPage));
       },
       borderSide: BorderSide(color: ColourHelper.white, width: 3),

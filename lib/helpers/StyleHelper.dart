@@ -6,8 +6,9 @@ abstract class ColourHelper {
   static final blackTransparent1 = Color(0x80000000);
   static final blackTransparent2 = Color(0x40000000);
   static final whiteTransparent1 = Color(0x50ffffff);
-  static final white = Color(0xfffffffe);
+  static final white = Color(0xfffffff6);
   static final black = Color(0xff000000);
+  static final lightBlack = Color.fromRGBO(20, 20, 20, 0.9);
   static final iconPrimary = Color(0xfffffffe);
 }
 

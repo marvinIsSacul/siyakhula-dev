@@ -3,63 +3,96 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:page_indicator/page_indicator.dart';
 
+
 import './AbstractPage.dart';
 import '../helpers/StyleHelper.dart';
 import '../helpers/PlatformHelper.dart';
 
 
-class OurServicesPage extends AbstractPage {
+class AboutUsPage extends AbstractPage {
 
-  final List<_Service> _services = [
-    _Service(
+  static final List<String> quotes = [
+    '''
+    We intend to improve lives of our clients by providing a distinct guidance to educational improvement and personal growth through our offerings.
+    '''
+  ];
+
+  final List<_Section> _sections = [
+    _Section(
       image: "assets/img/academic-coaching.png",
-      heading: "Academic Coaching",
+      heading: "About Us",
       description: '''
-      <h4>
-      We assist primary and high school learners to improve their academic perfomance.
-      We have proven strategies that provides good results to assist learners in gaining cofidence, improving their grades and finding joy in their studies.
-      We have assisted learners to improve by an average of 20% through our intervention.
-      </h4>
+        <p>Siyakhula Development Academy is a private company registered in 2017.
+        We offer academic coaching, which is a combination of tutoring, support and guidance.
+        We provide both customised group sessions and customized one-on one services suitable
+        for our clients to learn and implement their learnings for improvement in their studies.
+        </p>
 
+        <p>
+          <q><em>${quotes[0]}</em></q>
+        </p>
+      '''
+    ),
+
+    _Section(
+      image: PlatformHelper.isWeb() ? 'assets/img/academic-coaching.png' : 'assets/img/academic-coaching.png',
+      heading: 'Our Aim',
+      description: '''
+      To create a positive learning platform for those who desire to learn and improve their areas of development by delivering excellent academic support and guidance in a very professional and exciting way.
+      Our services are rendered by enthusiastic well-trained professionals with experience, passion, development-drive and commitment in different fields.
+      Our organization has a group of multi-skilled, experienced and knowledgeable individuals with a common purpose of social impact and social growth.
+      '''
+    ),
+
+    _Section(
+      image: PlatformHelper.isWeb() ? 'assets/img/bookkeeping-coaching.png' : 'assets/img/bookkeeping-coaching_phone.png',
+      heading: 'Our Mission',
+      description: '''
+      To provide professional coaching which will develop upcoming leaders with relevant skills and knowledge in order to
+      consistently remain competent in the challenging global market.
+      '''
+    ),
+
+    _Section(
+      image: PlatformHelper.isWeb() ? 'assets/img/bookkeeping-coaching.png' : 'assets/img/bookkeeping-coaching_phone.png',
+      heading: 'Our Vision',
+      description: '''
+      To be one of the top coaching providers within our niche characterised by offering quality services,
+      creating an excellent environment for our clients to learn, execute and grow,
+      to satisfy our clients and have an impact in their lives through our supportive system.
+      '''
+    ),
+
+    _Section(
+      image: PlatformHelper.isWeb() ? 'assets/img/bookkeeping-coaching.png' : 'assets/img/bookkeeping-coaching_phone.png',
+      heading: 'Our Values',
+      description: '''
       <p>
-        We specialise in the following subjects at affordable rates:
-        <ul>
-          <li>IsiXhosa</li>
-          <li>English</li>
-          <li>Life Orientation</li>
-          <li>Mathematics</li>
-          <li>Physical Sciences</li>
-          <li>Accounting</li>
-          <li>Business Studies</li>
-        </ul>
+        The following values inform how we operate:
       </p>
-      ''',
-      buttonText: "View available jobs",
-      //buttonUrl: "https://www.netguru.com/career"
-    ),
+      <ol>
+        <li>
+          <b>Time conscious:</b> be aware of the value of time and therefore, always be punctual in serving our clients and in all other things we do.
+        </li>
 
-    _Service(
-      image: PlatformHelper.isWeb() ? 'assets/img/bookkeeping-coaching.png' : 'assets/img/bookkeeping-coaching_phone.png',
-      heading: 'Career Guidance',
-      description: '''
-      Most students face a challenge of not knowing which career path they should go for,
-      we commit into providing consulting by unlocking unknown elements crucial for decision making to assist students in making rational decisions on which subjects to choose and which careers suits them.
-      We assist students in understanding themselves to a point where they are confident about what they want to do post-matric.
-      ''',
-      buttonText: "View available jobs",
-      //buttonUrl: "https://www.netguru.com/career"
-    ),
+        <li>
+          <b>Respect:</b> constantly and consistently considerate of all the stakeholders’ interests in all our dealings.
+        </li>
 
-    _Service(
-      image: PlatformHelper.isWeb() ? 'assets/img/bookkeeping-coaching.png' : 'assets/img/bookkeeping-coaching_phone.png',
-      heading: 'Personal Development',
-      description: '''
-      Young people find themselves in confusion due to life challenges and end up making uncalculated decisions which negatively affects them for the rest of their lives.
-      We offer a platform of assisting young people in realizing their full potential by guiding them in making right choices and by offering effective tools necessary for their personal growth.
-      ''',
-      buttonText: "View available jobs",
-      //buttonUrl: "https://www.netguru.com/career"
-    )
+        <li>
+          <b>Commitment and Hard-work:</b> we pledge ourselves to provide quality services through dedication and enthusiastically finish all the tasks at hand timeously.
+        </li>
+
+        <li>
+          <b>Effective Communication:</b> Ensuring that all exchange of information is done in an appropriate manner so as to promoting a smooth flow of communication in all relevant parties.
+        </li>
+
+        <li>
+          <b>Customer-cenrtric:</b> we provide a positive customer experience and we value all our customers.
+        </li>
+      </ol>
+      '''
+    ),    
   ];
 
   @override
@@ -70,7 +103,7 @@ class OurServicesPage extends AbstractPage {
         builder: (context) => Stack(
           children: <Widget>[
             PageIndicatorContainer(
-              length: this._services.length,
+              length: this._sections.length,
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).size.height * 0.1
               ),
@@ -79,8 +112,8 @@ class OurServicesPage extends AbstractPage {
               indicatorSelectorColor: ColourHelper.white,
               child: PageView(
                 children: [
-                  for (_Service service in this._services)
-                    _myService(service),
+                  for (_Section section in this._sections)
+                    _myService(section),
                 ]
               ),
             ),
@@ -103,7 +136,7 @@ class OurServicesPage extends AbstractPage {
   }
 
 
-  Widget _myService(_Service service) {
+  Widget _myService(_Section service) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: DimensionHelper.spacingNormal),
       alignment: AlignmentDirectional.center,
@@ -163,11 +196,10 @@ class OurServicesPage extends AbstractPage {
 }
 
 
-class _Service {
+class _Section {
   String image;
   String heading;
   String description; 
-  String buttonText;
 
-  _Service({this.image, this.heading, this.description, this.buttonText});
+  _Section({this.image, this.heading, this.description});
 }

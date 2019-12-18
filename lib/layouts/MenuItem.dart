@@ -5,7 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 import '../helpers/EnvironmentHelper.dart';
+
 import '../pages/OurServicesPage.dart';
+import '../pages/AboutUsPage.dart';
 
 
 
@@ -20,7 +22,7 @@ class MenuItem {
 
 
   static List<MenuItem> primary() => [
-    MenuItem(title: 'About Us', toPage: null, icon: FontAwesomeIcons.question),
+    MenuItem(title: 'About Us', toPage: AboutUsPage(), icon: FontAwesomeIcons.question),
     MenuItem(title: 'Our Services', toPage: OurServicesPage(), icon: FontAwesomeIcons.cogs),
     MenuItem(title: 'Fees', toPage: null, icon: FontAwesomeIcons.coins),
     MenuItem(title: 'Contact Us', toPage: null, icon: FontAwesomeIcons.phoneAlt),
