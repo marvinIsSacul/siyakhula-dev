@@ -14,22 +14,15 @@ import '../helpers/EnvironmentHelper.dart';
 
 abstract class AbstractPage extends StatelessWidget {
 
-  String _pageTitle;
+  String pageTitle;
+  String routeName;
+  IconData iconData;
 
-  AbstractPage() {
-    pageTitle = EnvironmentHelper.appNameShort();
-  }
 
-  set pageTitle(String title) {
-    this._pageTitle = title;
-    //html.window.location.href = title.replaceAll(' ', '-').toLowerCase();
-  }
-
-  get pageTitle => _pageTitle;
-
+  AbstractPage({this.pageTitle, this.routeName, this.iconData});
 
   Widget drawer(BuildContext context) {
-    if (PlatformHelper.isPhone() || PlatformHelper.isScreenSmall(context) || PlatformHelper.isScreenExtraSmall(context)) {
+    if (PlatformHelper.isLayoutMobile(context)) {
       return MenuMobileLayout();
     }
     else {
@@ -49,21 +42,16 @@ abstract class AbstractPage extends StatelessWidget {
   }
 
   Widget headerAuto(BuildContext context) {
-    return PlatformHelper.isPhone()
-       || PlatformHelper.isScreenExtraLarge(context) 
-      || PlatformHelper.isScreenLarge(context)
-      //|| PlatformHelper.isScreenMedium(context)
-        ? HeaderWebLayout()
-        : HeaderMobileLayout(this.pageTitle, () => this.toggleDrawer(context));
+    return PlatformHelper.isLayoutMobile(context)
+        ? HeaderMobileLayout(this.pageTitle, () => this.toggleDrawer(context))
+        : HeaderWebLayout();
   }
 
   Widget menuAuto(BuildContext context) {
-    return PlatformHelper.isPhone()
-      || PlatformHelper.isScreenExtraLarge(context)
-      || PlatformHelper.isScreenLarge(context)
-      //|| PlatformHelper.isScreenMedium(context)
-        ? MenuWebLayout()
-        : MenuMobileLayout();
+    return 
+      PlatformHelper.isLayoutMobile(context)
+        ? MenuMobileLayout()
+        : MenuWebLayout();
   }
 
 

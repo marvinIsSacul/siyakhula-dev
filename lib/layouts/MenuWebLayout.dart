@@ -34,7 +34,9 @@ class MenuWebLayout extends StatelessWidget {
   }
 
   Widget _createMenuItem(MenuItem menuItem, BuildContext context) {
-    return OutlineButton(
+    return RaisedButton(
+      color: ColourHelper.blackTransparent1,
+      hoverColor: ColourHelper.black,
       padding: EdgeInsets.symmetric(horizontal: DimensionHelper.spacingNormal),
       child: Container(
         child: Row(
@@ -43,12 +45,12 @@ class MenuWebLayout extends StatelessWidget {
               margin: EdgeInsets.only(right: 8.0),
               child: Icon(
                 menuItem.icon,
-                color: ColourHelper.iconPrimary
+                color: ColourHelper.white
               ),
             ),
             Text(
               menuItem.title,
-              style: TextStyleHelper.button,
+              style: TextStyleHelper.menuLabel,
             )
           ]
         )
@@ -56,7 +58,6 @@ class MenuWebLayout extends StatelessWidget {
       onPressed: menuItem.toPage == null ? null : () {
         Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => menuItem.toPage));
       },
-      borderSide: BorderSide(color: ColourHelper.white, width: 3),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))
     );
 

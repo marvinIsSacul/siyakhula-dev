@@ -11,8 +11,10 @@ abstract class PlatformHelper {
 
   static bool isAndroid(BuildContext context) => Theme.of(context).platform == TargetPlatform.android;
 
+  /// Whether the application is complied to run on mobile.
   static bool isPhone() => (!isWeb()); // || isApple(context) || isAndroid(context);
 
+  /// Whether the application is complied to run on the Web.
   static bool isWeb() => kIsWeb /*&& !isPhone(context) && !isTablet(context)*/;
 
   // iPhone 6S 
@@ -69,18 +71,31 @@ abstract class PlatformHelper {
   }
 
 
-  // For screen sizes greater than 1200px.
+  /// For screen sizes greater than `1200px`.
   static bool isScreenExtraLarge(BuildContext context) => MediaQuery.of(context).size.width > 1200;
   
-  // For screen sizes greater than or equal to 992px.
-  static bool isScreenLarge(BuildContext context) => MediaQuery.of(context).size.width >= 992 && MediaQuery.of(context).size.width <= 1200;
+  /// For screen sizes greater than or equal to `992px` and less than or equal to `1200px`.
+  /// 
+  /// [bug] Causes application to break when width is in range.
+  static bool isScreenLarge(BuildContext context) => (MediaQuery.of(context).size.width >= 992 && MediaQuery.of(context).size.width <= 1200);
  
-  // For screen sizes greater than or equal to 768px.
+  /// For screen sizes greater than or equal to `768px` and less than `992px`.
   static bool isScreenMedium(BuildContext context) => MediaQuery.of(context).size.width >= 768 && MediaQuery.of(context).size.width < 992;
   
-  // For screen sizes greater than or equal to 576px.
+  /// For screen sizes greater than or equal to `576px` and less than `768px`.
   static bool isScreenSmall(BuildContext context) => MediaQuery.of(context).size.width >= 576 && MediaQuery.of(context).size.width < 768;
   
-  // For screen sizes less than 576.
+  /// For screen sizes less than `576px`.
   static bool isScreenExtraSmall(BuildContext context) => MediaQuery.of(context).size.width < 576;
+
+
+  static bool isLayoutMobile(BuildContext context)
+      => PlatformHelper.isPhone()
+        || PlatformHelper.isScreenExtraSmall(context)
+       || PlatformHelper.isScreenSmall(context)
+        || PlatformHelper.isScreenMedium(context)
+        || PlatformHelper.isScreenLarge(context)
+        ;
+
+  static bool isLayoutDesktop(BuildContext context) => !isLayoutMobile(context);
 }

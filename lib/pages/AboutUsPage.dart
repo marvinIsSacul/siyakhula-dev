@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_indicator/page_indicator.dart';
 
 
@@ -11,7 +12,14 @@ import '../helpers/PlatformHelper.dart';
 
 class AboutUsPage extends AbstractPage {
 
-  static final List<String> quotes = [
+  AboutUsPage() : super() {
+    super.routeName = '/about-us';
+    super.pageTitle = 'About Us';
+    super.iconData = FontAwesomeIcons.question;
+  }
+
+
+  static final List<String> _quotes = [
     '''
     We intend to improve lives of our clients by providing a distinct guidance to educational improvement and personal growth through our offerings.
     '''
@@ -19,7 +27,6 @@ class AboutUsPage extends AbstractPage {
 
   final List<_Section> _sections = [
     _Section(
-      image: "assets/img/academic-coaching.png",
       heading: "About Us",
       description: '''
         <p>Siyakhula Development Academy is a private company registered in 2017.
@@ -29,13 +36,12 @@ class AboutUsPage extends AbstractPage {
         </p>
 
         <p>
-          <q><em>${quotes[0]}</em></q>
+          <q>${_quotes[0]}></q>
         </p>
       '''
     ),
 
     _Section(
-      image: PlatformHelper.isWeb() ? 'assets/img/academic-coaching.png' : 'assets/img/academic-coaching.png',
       heading: 'Our Aim',
       description: '''
       To create a positive learning platform for those who desire to learn and improve their areas of development by delivering excellent academic support and guidance in a very professional and exciting way.
@@ -45,7 +51,6 @@ class AboutUsPage extends AbstractPage {
     ),
 
     _Section(
-      image: PlatformHelper.isWeb() ? 'assets/img/bookkeeping-coaching.png' : 'assets/img/bookkeeping-coaching_phone.png',
       heading: 'Our Mission',
       description: '''
       To provide professional coaching which will develop upcoming leaders with relevant skills and knowledge in order to
@@ -54,7 +59,6 @@ class AboutUsPage extends AbstractPage {
     ),
 
     _Section(
-      image: PlatformHelper.isWeb() ? 'assets/img/bookkeeping-coaching.png' : 'assets/img/bookkeeping-coaching_phone.png',
       heading: 'Our Vision',
       description: '''
       To be one of the top coaching providers within our niche characterised by offering quality services,
@@ -64,7 +68,6 @@ class AboutUsPage extends AbstractPage {
     ),
 
     _Section(
-      image: PlatformHelper.isWeb() ? 'assets/img/bookkeeping-coaching.png' : 'assets/img/bookkeeping-coaching_phone.png',
       heading: 'Our Values',
       description: '''
       <p>
@@ -108,25 +111,19 @@ class AboutUsPage extends AbstractPage {
                 bottom: MediaQuery.of(context).size.height * 0.1
               ),
               indicatorSpace: DimensionHelper.spacingNormal,
-              indicatorColor: ColourHelper.whiteTransparent1,
-              indicatorSelectorColor: ColourHelper.white,
+              indicatorColor: ColourHelper.white,
+              indicatorSelectorColor: ColourHelper.accentPrimary,
               child: PageView(
                 children: [
                   for (_Section section in this._sections)
-                    _myService(section),
+                    _myService(section, context),
                 ]
               ),
             ),
             Column(
               children: <Widget>[
                 this.headerAuto(context),
-                if (!PlatformHelper.isWeb()
-                  || PlatformHelper.isScreenExtraLarge(context)
-                  || PlatformHelper.isScreenLarge(context)
-                  || PlatformHelper.isScreenExtraLarge(context)
-                  //|| PlatformHelper.isScreenMedium(context)
-                  )
-                  this.menuAuto(context),
+                if (PlatformHelper.isLayoutDesktop(context)) this.menuAuto(context),
               ],
             )
           ],
@@ -136,7 +133,7 @@ class AboutUsPage extends AbstractPage {
   }
 
 
-  Widget _myService(_Section service) {
+  Widget _myService(_Section service, BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: DimensionHelper.spacingNormal),
       alignment: AlignmentDirectional.center,
@@ -144,7 +141,9 @@ class AboutUsPage extends AbstractPage {
         color: ColourHelper.blackTransparent1,
         backgroundBlendMode: BlendMode.overlay,
         image: DecorationImage(
-          image: AssetImage(service.image),
+          image: AssetImage(
+            PlatformHelper.isLayoutMobile(context) ? 'assets/img/default-background-2_md.jpg' : 'assets/img/default-background-2_lg.jpg'
+          ),
           fit: BoxFit.cover
         )
       ),

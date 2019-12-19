@@ -21,10 +21,10 @@ class MenuMobileLayout extends StatelessWidget {
             end: Alignment.bottomRight,
             stops: [0.1, 0.5, 0.7, 0.9],
             colors: [
-              Colors.black,
-              Colors.black54,
-              Colors.black45,
-              Colors.black38
+              ColourHelper.accentPrimary,
+              ColourHelper.accentSecondary,
+              ColourHelper.accentTertiary,
+              ColourHelper.accentLast,
             ]
           )
           //border: 
@@ -41,28 +41,23 @@ class MenuMobileLayout extends StatelessWidget {
           ],
         ),
       ),
+      
     );
   }
 
   Widget _createMenuItem(MenuItem item, BuildContext context) {
     return ListTile(
+      leading: Icon(
+        item.icon,
+        color: ColourHelper.iconPrimary,
+      ),
       title: Row(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(right: 20.0),
-            child: Icon(
-              item.icon,
-              color: ColourHelper.iconPrimary,
-            ),
+         Text(
+            item.title,
+            style: TextStyle(color: ColourHelper.white)
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 8.0),
-            child: Text(
-              item.title,
-              style: TextStyle(color: ColourHelper.white)
-            ),
-          )
         ],
       ),
       onTap: (item.toPage == null) ? null : () {
@@ -70,7 +65,7 @@ class MenuMobileLayout extends StatelessWidget {
         Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => item.toPage));
       },
     );
-}
+  }
 
    Widget _createHeader() {
     return Container(
@@ -94,27 +89,10 @@ class MenuMobileLayout extends StatelessWidget {
                 EnvironmentHelper.appNameShort(),
                 style: TextStyle(
                   color: ColourHelper.white,
-                  fontSize: 26
+                  fontSize: 24
                 ),
               )
-            ),
-            /*Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              mainAxisSize: MainAxisSize.max,
-             // crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                for (LinkItem item in LinkItem.all())
-                  IconButton(
-                    icon: Icon(
-                      item.icon,
-                      color: ColourHelper.iconPrimary
-                    ),
-                    onPressed: () async {
-                      await launch(item.url);
-                    },
-                  )
-              ]
-            )*/
+            )
           ],
         )
       );

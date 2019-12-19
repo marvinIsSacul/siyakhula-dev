@@ -23,11 +23,11 @@ class MenuItem {
 
   static List<MenuItem> primary() => [
     MenuItem(title: 'About Us', toPage: AboutUsPage(), icon: FontAwesomeIcons.question),
-    MenuItem(title: 'Our Services', toPage: OurServicesPage(), icon: FontAwesomeIcons.cogs),
+    MenuItem(title: 'Our Services', toPage: OurServicesPage(), icon: FontAwesomeIcons.cog),
     MenuItem(title: 'Fees', toPage: null, icon: FontAwesomeIcons.coins),
     MenuItem(title: 'Contact Us', toPage: null, icon: FontAwesomeIcons.phoneAlt),
-    MenuItem(title: 'Join Our Team', toPage: null, icon: FontAwesomeIcons.userFriends),
-    MenuItem(title: 'Reviews', toPage: null, icon: FontAwesomeIcons.pencilAlt),
+    MenuItem(title: 'Join Our Team', toPage: null, icon: FontAwesomeIcons.users),
+    MenuItem(title: 'Reviews', toPage: null, icon: FontAwesomeIcons.star),
   ];
 
   static List<MenuItem> secondary() => [
