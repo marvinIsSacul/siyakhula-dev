@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../helpers/EnvironmentHelper.dart';
 import '../helpers/StyleHelper.dart';
-import '../pages/abstract/AbstractPage.dart';
 import '../config/Routes.dart';
 
 
@@ -31,12 +30,12 @@ class MenuMobileLayout extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             _createHeader(),
-            for (AbstractPage page in Routes.primary())
-              _createMenuItem(page, context),
+            for (LinkItem item in Routes.primary())
+              _createMenuItem(item, context),
             if (Routes.secondary().length > 0)
               Divider(thickness: 1.0,),
-            for (AbstractPage page in Routes.secondary())
-              _createMenuItem(page, context),
+            for (LinkItem item in Routes.secondary())
+              _createMenuItem(item, context),
           ],
         ),
       ),
@@ -44,12 +43,12 @@ class MenuMobileLayout extends StatelessWidget {
     );
   }
 
-  Widget _createMenuItem(AbstractPage page, BuildContext context) {
-    final bool isCurrentRoute = ModalRoute.of(context)?.settings?.name == page.routeName;
+  Widget _createMenuItem(LinkItem item, BuildContext context) {
+    final bool isCurrentRoute = ModalRoute.of(context)?.settings?.name == item.routeName;
 
     return ListTile(
       leading: Icon(
-        page.iconData,
+        item.iconData,
         color: isCurrentRoute ? ColourHelper.black : ColourHelper.iconPrimary,
       ),
       selected: isCurrentRoute,
@@ -57,15 +56,15 @@ class MenuMobileLayout extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
          Text(
-            page.pageTitle,
+            item.pageTitle,
             style: TextStyle(
               color: isCurrentRoute ? ColourHelper.black : ColourHelper.white
             )
           ),
         ],
       ),
-      onTap: !page.isEnabled || isCurrentRoute ? null : () {
-        Navigator.popAndPushNamed(context, page.routeName);
+      onTap: !item.isClikable || isCurrentRoute ? null : () {
+        Navigator.popAndPushNamed(context, item.routeName);
       },
     );
   }

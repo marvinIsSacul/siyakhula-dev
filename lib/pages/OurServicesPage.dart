@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import './abstract/AbstractPage.dart';
 import '../helpers/StyleHelper.dart';
@@ -9,9 +8,6 @@ import '../helpers/PlatformHelper.dart';
 
 
 class OurServicesPage extends AbstractPage {
-
-  OurServicesPage() : super(routeName: '/services', pageTitle: 'Our Services', iconData: FontAwesomeIcons.cog);
-
 
   final List<_Service> _services = [
     _Service(

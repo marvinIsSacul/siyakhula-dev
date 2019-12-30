@@ -2,8 +2,6 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-//import 'package:image_picker/image_picker.dart';
 
 import '../helpers/PlatformHelper.dart';
 import '../helpers/StyleHelper.dart';
@@ -16,7 +14,6 @@ class BugReportPage extends AbstractPage {
   final _feedbackTextController = TextEditingController();
   final kRegistrationBlack = ColourHelper.blackTransparent1;
 
-  BugReportPage() : super(pageTitle: 'Report Bug', routeName: '/bug-report', iconData: FontAwesomeIcons.bug);
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,7 @@
 
-
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../helpers/EnvironmentHelper.dart';
-import '../helpers/PlatformHelper.dart';
 import '../pages/ContactUsPage.dart';
 import '../pages/FeesPage.dart';
 import '../pages/JoinOurTeamPage.dart';
@@ -17,47 +14,45 @@ import '../pages/BugReportPage.dart';
 
 /// The app routes.
 class Routes {
-  static const int _homePageIndex = 0;
-  
 
-  static final List<AbstractPage> _primary = [
-    AboutUsPage(),
-    OurServicesPage(),
-    ContactUsPage(),
-    FeesPage(),
-    JoinOurTeamPage()
+  static final List<LinkItem> _primary = [
+    LinkItem<AboutUsPage>(routeName: '/about', pageTitle: 'About Us', iconData: FontAwesomeIcons.info),
+    LinkItem<OurServicesPage>(routeName: '/services', pageTitle: 'Our Services', iconData: FontAwesomeIcons.cogs),
+    LinkItem<ContactUsPage>(routeName: '/contact-us', pageTitle: 'Contact Us', iconData: FontAwesomeIcons.phone),
+    LinkItem<FeesPage>(routeName: '/fees', pageTitle: 'Our Fees', iconData: FontAwesomeIcons.coins),
+    LinkItem<JoinOurTeamPage>(routeName: '/join-our-team', pageTitle: 'Join Our Team', iconData: FontAwesomeIcons.users),
   ];
 
-  static final List<AbstractPage> _secondary = [
-    if (PlatformHelper.isPhone()) BugReportPage(),
+  static final List<LinkItem> _secondary = [
+    LinkItem<BugReportPage>(routeName: '/bug-report', pageTitle: 'Report Bug', iconData: FontAwesomeIcons.bug),
   ];
 
-  static final List<AbstractPage> _tertiary = [
-    _NonePage(pageTitle: EnvironmentHelper.appVersion(), iconData: FontAwesomeIcons.codeBranch),
+  static final List<LinkItem> _tertiary = [
+
   ];
 
-  static final List<AbstractPage> _implicit = [
-    NotFoundPage()
+  static final List<LinkItem> _implicit = [
+    LinkItem<NotFoundPage>(routeName: '/404', pageTitle: 'Not Found', iconData: FontAwesomeIcons.exclamationTriangle),
   ];
 
 
   /// The home page.
-  static AbstractPage home() => _primary[_homePageIndex];
+  static LinkItem home() => primary().first;
 
   /// All the "primary" pages.
-  static List<AbstractPage> primary() => _primary;
+  static List<LinkItem> primary() => _primary;
 
   /// All the "secondary" pages.
-  static List<AbstractPage> secondary() => _secondary;
+  static List<LinkItem> secondary() => _secondary;
 
   /// All the "tertiary" pages.
-  static List<AbstractPage> tertiary() => _tertiary;
+  static List<LinkItem> tertiary() => _tertiary;
 
-  /// All the "tertiary" pages.
-  static List<AbstractPage> implicit() => _implicit;
+  /// All the "implicit" pages.
+  static List<LinkItem> implicit() => _implicit;
 
   /// All the pages.
-  static List<AbstractPage> all() => [
+  static List<LinkItem> all() => [
     ...primary(),
     ...secondary(),
     ...tertiary(),
@@ -67,43 +62,41 @@ class Routes {
 
   /// Generates the app routes.
   static Map<String, Widget Function(BuildContext)> generateRoutes() {
-    //assert(_routeConfigCount == 0, 'Routes should be generated only once!');
-
-    //print('size: ' + Routes.all().length.toString());
-
-    final Map routes = Map<String, Widget Function(BuildContext)>(); /*.fromEntries(
+    final Map routes = Map<String, Widget Function(BuildContext)>.fromEntries(
       // creates something like:
       // <String, Function>{ AbstractPage.pageTitle, () => AbstractPage() }
       Routes.all()
-        .map<MapEntry<String, Widget Function(BuildContext)>>( (AbstractPage page) => MapEntry(page.routeName, (BuildContext context) => page ))
+        .map<MapEntry<String, Widget Function(BuildContext)>>( (LinkItem item) => MapEntry(item.routeName, (BuildContext context) => item.getPage() ))
     );
-*/
-    // "root" route.
-    routes.addAll(<String, Widget Function(BuildContext)>{
-      '/': (context) => home(),
-      '/about': (context) => AboutUsPage(),
-      '/services': (context) => OurServicesPage(),
-      '/contact-us': (context) => ContactUsPage(),
-      '/bug-report': (context) => BugReportPage(),
-      '/fees': (context) => FeesPage(),
-      '/join-our-team': (context) => JoinOurTeamPage()
-    });
-
-   // _routeConfigCount++;
 
     return routes;
   }
 }
 
-class _NonePage extends AbstractPage {
 
-  _NonePage({String pageTitle, IconData iconData})
-    : super(isEnabled: false, routeName: '', pageTitle: pageTitle, iconData: iconData);
-  
-  @override
-  Widget build(BuildContext context) {
-    assert(false, "Page is not supposed to be drawn!");
-    return null;
+
+class LinkItem<T extends AbstractPage> {
+  // Pages are created on Demand. This is important.
+  static final Map<Type, AbstractPage Function()> _mapper = {
+    AboutUsPage: () => AboutUsPage(),
+    OurServicesPage: () => OurServicesPage(),
+    ContactUsPage: () => ContactUsPage(),
+    FeesPage: () => FeesPage(),
+    JoinOurTeamPage: () => JoinOurTeamPage(),
+    BugReportPage: () => BugReportPage(),
+  };
+
+  String pageTitle;
+  String routeName;
+  IconData iconData;
+  bool isClikable;
+
+  AbstractPage getPage() {
+    return _mapper[T]()
+        ..pageTitle = this.pageTitle
+        ..routeName = this.routeName
+        ..iconData = this.iconData;
   }
 
+  LinkItem({this.pageTitle, this.routeName, this.iconData, this.isClikable = true});
 }

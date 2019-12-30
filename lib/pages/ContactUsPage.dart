@@ -2,9 +2,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../helpers/EnvironmentHelper.dart';
 import '../helpers/PlatformHelper.dart';
@@ -13,9 +11,6 @@ import 'abstract/AbstractPage.dart';
 
 
 class ContactUsPage extends AbstractPage {
-
-  ContactUsPage() : super(pageTitle: 'Contact Us', routeName: '/contact-us', iconData: FontAwesomeIcons.phoneAlt);
-
 
   Widget build(BuildContext context) {
     return this.basicScaffold(
@@ -91,7 +86,7 @@ class ContactUsPage extends AbstractPage {
           EnvironmentHelper.appNameShort() + ' OFFICE',
           style: TextStyleHelper.onPageSectionHeading,
         ),
-        _detailsLine(text: EnvironmentHelper.addressPrimary(), icon: FontAwesomeIcons.searchLocation),
+        _detailsLine(text: EnvironmentHelper.addressPrimary(), icon: FontAwesomeIcons.mapMarkerAlt),
         _detailsLine(text: EnvironmentHelper.emailSupport(), icon: FontAwesomeIcons.at),
         _detailsLine(
           text: EnvironmentHelper.phonePrimary(),

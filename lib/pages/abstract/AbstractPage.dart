@@ -12,20 +12,27 @@ import '../../helpers/StyleHelper.dart';
 
 
 abstract class AbstractPage extends StatelessWidget {
-  final String pageTitle;
-  final String routeName;
-  final IconData iconData;
-  final bool isEnabled;
-  static int _keyId = 0;
-  final scaffoldKey = GlobalKey<ScaffoldState>(debugLabel: 'scaffoldKey#' + (++_keyId).toString());
+  String pageTitle;
+  String routeName;
+  IconData iconData;
+
+  @protected
+  static int keyId = 0;
+
+  @protected
+  final scaffoldKey = _genKey();
 
 
-  AbstractPage({@required this.pageTitle, @required this.routeName, @required this.iconData, this.isEnabled = true}) {
+  AbstractPage({@required this.pageTitle, @required this.routeName, @required this.iconData}) {
     //assert(pageTitle != null && pageTitle.isNotEmpty, 'Page title should not be null or empty!');
     //assert(routeName != null && routeName.isNotEmpty, 'Route name should not be null or empty!');
     //assert(iconData != null, 'Icon data should not be null!');
     //print('created! = ' + scaffoldKey.hashCode.toRadixString(16));
   }
+
+  static GlobalKey<ScaffoldState> _genKey() =>
+    GlobalKey<ScaffoldState>(debugLabel: 'scaffoldKey#' + (++keyId).toString());
+  
 
   @protected
   Widget drawer(BuildContext context) {

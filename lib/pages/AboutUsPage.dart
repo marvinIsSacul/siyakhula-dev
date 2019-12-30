@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 import './abstract/AbstractPage.dart';
@@ -10,8 +9,6 @@ import '../helpers/PlatformHelper.dart';
 
 
 class AboutUsPage extends AbstractPage {
-
-  AboutUsPage() : super(routeName: '/about', pageTitle: 'About Us', iconData: FontAwesomeIcons.question);
 
   static final List<String> _quotes = [
     '''

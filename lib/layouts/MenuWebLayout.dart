@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 
 import '../config/Routes.dart';
-import '../pages/abstract/AbstractPage.dart';
 import '../helpers/StyleHelper.dart';
 
 
@@ -23,8 +22,8 @@ class MenuWebLayout extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              for (AbstractPage page in Routes.primary())
-                _createMenuItem(page, context),
+              for (LinkItem item in Routes.primary())
+                _createMenuItem(item, context),
             ],
           ),
           /*Container(
@@ -35,8 +34,8 @@ class MenuWebLayout extends StatelessWidget {
     );
   }
 
-  Widget _createMenuItem(AbstractPage page, BuildContext context) {
-    final bool isCurrentRoute = ModalRoute.of(context)?.settings?.name == page.routeName;
+  Widget _createMenuItem(LinkItem item, BuildContext context) {
+    final bool isCurrentRoute = ModalRoute.of(context)?.settings?.name == item.routeName;
 
     return RaisedButton(
       color: isCurrentRoute ? ColourHelper.accentPrimary : ColourHelper.blackTransparent1,
@@ -49,19 +48,19 @@ class MenuWebLayout extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(right: 8.0),
               child: Icon(
-                page.iconData,
+                item.iconData,
                 color: ColourHelper.white
               ),
             ),
             Text(
-              page.pageTitle,
+              item.pageTitle,
               style: TextStyleHelper.menuLabel,
             )
           ]
         )
       ),
-      onPressed: !page.isEnabled || isCurrentRoute ? null : () {
-        Navigator.popAndPushNamed(context, page.routeName);
+      onPressed: !item.isClikable || isCurrentRoute ? null : () {
+        Navigator.popAndPushNamed(context, item.routeName);
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))
     );
