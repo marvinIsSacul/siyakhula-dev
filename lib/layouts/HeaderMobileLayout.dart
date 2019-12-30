@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../helpers/StyleHelper.dart';
+import 'abstract/AbstractHeader.dart';
 
 
-class HeaderMobileLayout extends StatelessWidget {
-  final String pageTitle;
-  final Function onMenuPressed;
-
-  HeaderMobileLayout(this.pageTitle, this.onMenuPressed);
+class HeaderMobileLayout extends AbstractHeader {
+  
+  HeaderMobileLayout(String pageTitle, Function onMenuPressed) : super(pageTitle, onMenuPressed);
 
   @override
   Widget build(BuildContext context) {

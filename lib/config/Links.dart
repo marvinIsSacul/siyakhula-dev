@@ -5,15 +5,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../helpers/EnvironmentHelper.dart';
 
 
-class LinkItem {
+class Links {
   String url;
   String text;
   IconData icon;
 
-  LinkItem({this.url, this.icon});
+  Links({this.url, this.icon});
 
-
-  static List<LinkItem> all() => [
-    LinkItem(icon: FontAwesomeIcons.facebook, url: EnvironmentHelper.appFacebookPageUrl())
+  static List<Links> all() => [
+    Links(icon: FontAwesomeIcons.facebook, url: EnvironmentHelper.appFacebookPageUrl())
   ];
 }

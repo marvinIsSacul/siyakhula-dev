@@ -4,10 +4,15 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../helpers/StyleHelper.dart';
 import '../helpers/EnvironmentHelper.dart';
-import './LinkItem.dart';
+import '../config/Links.dart';
+
+import 'abstract/AbstractHeader.dart';
 
 
-class HeaderWebLayout extends StatelessWidget {
+class HeaderWebLayout extends AbstractHeader {
+
+  HeaderWebLayout([String pageTitle, Function onMenuPressed]) : super(pageTitle, onMenuPressed);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,14 +33,14 @@ class HeaderWebLayout extends StatelessWidget {
             EnvironmentHelper.appName(),
             style: TextStyle(
               fontSize: 25.0,
-              color: Color.fromRGBO(255, 255, 255, 1.0)
+              color: ColourHelper.white
             ),
           ),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                for (LinkItem link in LinkItem.all()) _drawLinkItem(link)
+                for (Links link in Links.all()) _drawLinkItem(link)
               ],
             ),
           ),
@@ -44,7 +49,7 @@ class HeaderWebLayout extends StatelessWidget {
     );
   }
 
-  Widget _drawLinkItem(LinkItem linkItem) => Container(
+  Widget _drawLinkItem(Links linkItem) => Container(
     padding: EdgeInsets.symmetric(
       vertical: DimensionHelper.spacingNormal,
       horizontal: DimensionHelper.spacingSmall

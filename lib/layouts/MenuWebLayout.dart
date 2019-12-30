@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-import './MenuItem.dart';
+import '../config/Routes.dart';
+import '../pages/abstract/AbstractPage.dart';
 import '../helpers/StyleHelper.dart';
 
 
@@ -22,7 +23,8 @@ class MenuWebLayout extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              for (MenuItem item in MenuItem.primary()) _createMenuItem(item, context),
+              for (AbstractPage page in Routes.primary())
+                _createMenuItem(page, context),
             ],
           ),
           /*Container(
@@ -33,10 +35,13 @@ class MenuWebLayout extends StatelessWidget {
     );
   }
 
-  Widget _createMenuItem(MenuItem menuItem, BuildContext context) {
+  Widget _createMenuItem(AbstractPage page, BuildContext context) {
+    final bool isCurrentRoute = ModalRoute.of(context)?.settings?.name == page.routeName;
+
     return RaisedButton(
-      color: ColourHelper.blackTransparent1,
-      hoverColor: ColourHelper.black,
+      color: isCurrentRoute ? ColourHelper.accentPrimary : ColourHelper.blackTransparent1,
+      disabledColor: ColourHelper.accentPrimary,
+      hoverColor: isCurrentRoute ? ColourHelper.accentPrimary : ColourHelper.black,
       padding: EdgeInsets.symmetric(horizontal: DimensionHelper.spacingNormal),
       child: Container(
         child: Row(
@@ -44,19 +49,19 @@ class MenuWebLayout extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(right: 8.0),
               child: Icon(
-                menuItem.icon,
+                page.iconData,
                 color: ColourHelper.white
               ),
             ),
             Text(
-              menuItem.title,
+              page.pageTitle,
               style: TextStyleHelper.menuLabel,
             )
           ]
         )
       ),
-      onPressed: menuItem.toPage == null ? null : () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => menuItem.toPage));
+      onPressed: !page.isEnabled || isCurrentRoute ? null : () {
+        Navigator.popAndPushNamed(context, page.routeName);
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))
     );

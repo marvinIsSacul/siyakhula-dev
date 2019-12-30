@@ -11,7 +11,7 @@ description: "Siyakhula Development Academy's Mobile & Web App."
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 0.1912.26+1
 
 environment:
   sdk: ">=2.3.0 <3.0.0"
@@ -26,6 +26,7 @@ dependencies:
   page_indicator: ^0.3.0
   font_awesome_flutter: ^8.5.0
   flutter_html: ^0.11.1
+  image_picker: ^0.6.2+3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -36,7 +37,7 @@ dev_dependencies:
   flutter_test: 
     sdk: flutter
   build_runner: ^1.7.2
-  #build_test: ^0.10.11
+  build_test: ^0.10.11
   build_web_compilers: ^2.7.1
 
 
@@ -63,9 +64,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/img/
+    - assets/strings/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -79,6 +80,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: ProximaNova
+    - family: Alegreya
       fonts:
-        - asset: fonts/ProximaNova-Regular.ttf
+        - asset: assets/fonts/Alegreya-Regular.ttf

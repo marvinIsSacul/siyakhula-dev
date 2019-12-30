@@ -6,9 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'abstract/AbstractPage.dart';
 
 
-class FeesPage extends AbstractPage {
+class JoinOurTeamPage extends AbstractPage {
 
-  FeesPage() : super(pageTitle: 'Fees', routeName: '/fees', iconData: FontAwesomeIcons.coins);
+  JoinOurTeamPage() : super(pageTitle: 'Join Our Team', routeName: '/join-our-team', iconData: FontAwesomeIcons.users);
 
 
   Widget build(BuildContext context) {

@@ -2,22 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:page_indicator/page_indicator.dart';
 
 
-import './AbstractPage.dart';
+import './abstract/AbstractPage.dart';
 import '../helpers/StyleHelper.dart';
 import '../helpers/PlatformHelper.dart';
 
 
 class AboutUsPage extends AbstractPage {
 
-  AboutUsPage() : super() {
-    super.routeName = '/about-us';
-    super.pageTitle = 'About Us';
-    super.iconData = FontAwesomeIcons.question;
-  }
-
+  AboutUsPage() : super(routeName: '/about', pageTitle: 'About Us', iconData: FontAwesomeIcons.question);
 
   static final List<String> _quotes = [
     '''
@@ -36,7 +30,7 @@ class AboutUsPage extends AbstractPage {
         </p>
 
         <p>
-          <q>${_quotes[0]}></q>
+          <q>${_quotes[0]}</q>
         </p>
       '''
     ),
@@ -100,36 +94,12 @@ class AboutUsPage extends AbstractPage {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: this.drawer(context),
-      body: Builder(
-        builder: (context) => Stack(
-          children: <Widget>[
-            PageIndicatorContainer(
-              length: this._sections.length,
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.1
-              ),
-              indicatorSpace: DimensionHelper.spacingNormal,
-              indicatorColor: ColourHelper.white,
-              indicatorSelectorColor: ColourHelper.accentPrimary,
-              child: PageView(
-                children: [
-                  for (_Section section in this._sections)
-                    _myService(section, context),
-                ]
-              ),
-            ),
-            Column(
-              children: <Widget>[
-                this.headerAuto(context),
-                if (PlatformHelper.isLayoutDesktop(context)) this.menuAuto(context),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+    return this.basicScaffoldWithPageIndicator(
+            context, [
+              for (_Section section in this._sections)
+                _myService(section, context),
+              ]
+            );
   }
 
 

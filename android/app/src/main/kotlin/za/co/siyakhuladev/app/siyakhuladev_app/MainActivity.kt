@@ -1,4 +1,4 @@
-package za.co.siyakhuladev.sda_frontend
+package za.co.siyakhuladev.app.siyakhuladev_app
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../helpers/EnvironmentHelper.dart';
 import '../helpers/StyleHelper.dart';
-import './MenuItem.dart';
-import './LinkItem.dart';
+import '../pages/abstract/AbstractPage.dart';
+import '../config/Routes.dart';
 
 
 class MenuMobileLayout extends StatelessWidget {
@@ -14,7 +13,6 @@ class MenuMobileLayout extends StatelessWidget {
       //elevation: 16.0,
       child: Container(
         decoration: BoxDecoration(
-          color: ColourHelper.lightBlack,
          // borderRadius: BorderRadius.circular(8.0),
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -33,11 +31,12 @@ class MenuMobileLayout extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             _createHeader(),
-            for (MenuItem item in MenuItem.primary())
-              _createMenuItem(item, context),
-            Divider(thickness: 1.0,),
-            for (MenuItem item in MenuItem.secondary())
-              _createMenuItem(item, context),
+            for (AbstractPage page in Routes.primary())
+              _createMenuItem(page, context),
+            if (Routes.secondary().length > 0)
+              Divider(thickness: 1.0,),
+            for (AbstractPage page in Routes.secondary())
+              _createMenuItem(page, context),
           ],
         ),
       ),
@@ -45,24 +44,28 @@ class MenuMobileLayout extends StatelessWidget {
     );
   }
 
-  Widget _createMenuItem(MenuItem item, BuildContext context) {
+  Widget _createMenuItem(AbstractPage page, BuildContext context) {
+    final bool isCurrentRoute = ModalRoute.of(context)?.settings?.name == page.routeName;
+
     return ListTile(
       leading: Icon(
-        item.icon,
-        color: ColourHelper.iconPrimary,
+        page.iconData,
+        color: isCurrentRoute ? ColourHelper.black : ColourHelper.iconPrimary,
       ),
+      selected: isCurrentRoute,
       title: Row(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
          Text(
-            item.title,
-            style: TextStyle(color: ColourHelper.white)
+            page.pageTitle,
+            style: TextStyle(
+              color: isCurrentRoute ? ColourHelper.black : ColourHelper.white
+            )
           ),
         ],
       ),
-      onTap: (item.toPage == null) ? null : () {
-        //Navigator.of(context).pop();
-        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => item.toPage));
+      onTap: !page.isEnabled || isCurrentRoute ? null : () {
+        Navigator.popAndPushNamed(context, page.routeName);
       },
     );
   }
@@ -72,7 +75,7 @@ class MenuMobileLayout extends StatelessWidget {
         height: 64,
         padding: EdgeInsets.all(DimensionHelper.spacingSmall),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8.0), bottomRight: Radius.circular(8.0)),
           color: ColourHelper.blackTransparent2
           //gradient: G (colors: [ColourHelper.blackTransparent1])
         ),
@@ -82,7 +85,12 @@ class MenuMobileLayout extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
          // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Image.asset('assets/img/sda-logo_32.png'),
+            CircleAvatar(
+              backgroundImage: AssetImage('assets/img/sda-logo_32.png'),
+              //radius: 16.0,
+              minRadius: 18.0,
+              maxRadius: 20.0,
+            ),
             Padding(
               padding: EdgeInsets.only(left: 8),
               child: Text(

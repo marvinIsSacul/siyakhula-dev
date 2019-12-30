@@ -2,20 +2,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:page_indicator/page_indicator.dart';
 
-import './AbstractPage.dart';
+import './abstract/AbstractPage.dart';
 import '../helpers/StyleHelper.dart';
 import '../helpers/PlatformHelper.dart';
 
 
 class OurServicesPage extends AbstractPage {
 
-  OurServicesPage() : super() {
-    super.routeName = '/our-services';
-    super.pageTitle = 'Our Services';
-    super.iconData = FontAwesomeIcons.cog;
-  }
+  OurServicesPage() : super(routeName: '/services', pageTitle: 'Our Services', iconData: FontAwesomeIcons.cog);
 
 
   final List<_Service> _services = [
@@ -66,36 +61,10 @@ class OurServicesPage extends AbstractPage {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: this.drawer(context),
-      body: Builder(
-        builder: (context) => Stack(
-          children: <Widget>[
-            PageIndicatorContainer(
-              length: this._services.length,
-              padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.1
-              ),
-              indicatorSpace: DimensionHelper.spacingNormal,
-              indicatorColor: ColourHelper.white,
-              indicatorSelectorColor: ColourHelper.accentPrimary,
-              child: PageView(
-                children: [
+    return this.basicScaffoldWithPageIndicator(context, [
                   for (_Service service in this._services)
                     _myService(service, context),
-                ]
-              ),
-            ),
-            Column(
-              children: <Widget>[
-                this.headerAuto(context),
-                if (PlatformHelper.isLayoutDesktop(context)) this.menuAuto(context),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+                ]);
   }
 
 

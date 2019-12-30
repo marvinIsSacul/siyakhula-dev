@@ -4,8 +4,7 @@ import 'package:SiyakhulaDevelopmentAcademy/helpers/StyleHelper.dart';
 import 'package:flutter/material.dart';
 
 
-import './pages/AboutUsPage.dart';
-import './pages/OurServicesPage.dart';
+import 'config/Routes.dart';
 
 
 void main() {
@@ -16,17 +15,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: const Locale('en', 'ZA'),
+      supportedLocales: [const Locale('en', 'ZA')],
       theme: ThemeData(
-        fontFamily: 'ProximaNova',
+        fontFamily: 'Alegreya',
         accentColor: ColourHelper.accentPrimary,
         accentColorBrightness: Brightness.dark,
         platform: TargetPlatform.fuchsia
       ),
-      home: AboutUsPage(),
-      routes: {
-        //OurServicesPage.routeName: (context) => OurServicesPage(),
-        //AboutUsPage.routeName: (context) => AboutUsPage()
-      }
+      initialRoute: Routes.home().routeName,
+      //onUnknownRoute: ,
+      routes: Routes.generateRoutes()
     );
   }
 }
