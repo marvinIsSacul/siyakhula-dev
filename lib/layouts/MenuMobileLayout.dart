@@ -30,11 +30,11 @@ class MenuMobileLayout extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             _createHeader(),
-            for (LinkItem item in Routes.primary())
+            for (MenuItem item in Routes.primary())
               _createMenuItem(item, context),
             if (Routes.secondary().length > 0)
               Divider(thickness: 1.0,),
-            for (LinkItem item in Routes.secondary())
+            for (MenuItem item in Routes.secondary())
               _createMenuItem(item, context),
           ],
         ),
@@ -43,7 +43,7 @@ class MenuMobileLayout extends StatelessWidget {
     );
   }
 
-  Widget _createMenuItem(LinkItem item, BuildContext context) {
+  Widget _createMenuItem(MenuItem item, BuildContext context) {
     final bool isCurrentRoute = ModalRoute.of(context)?.settings?.name == item.routeName;
 
     return ListTile(

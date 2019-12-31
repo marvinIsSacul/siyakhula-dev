@@ -22,7 +22,7 @@ class MenuWebLayout extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              for (LinkItem item in Routes.primary())
+              for (MenuItem item in Routes.primary())
                 _createMenuItem(item, context),
             ],
           ),
@@ -34,7 +34,7 @@ class MenuWebLayout extends StatelessWidget {
     );
   }
 
-  Widget _createMenuItem(LinkItem item, BuildContext context) {
+  Widget _createMenuItem(MenuItem item, BuildContext context) {
     final bool isCurrentRoute = ModalRoute.of(context)?.settings?.name == item.routeName;
 
     return RaisedButton(

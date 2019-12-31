@@ -15,44 +15,44 @@ import '../pages/BugReportPage.dart';
 /// The app routes.
 class Routes {
 
-  static final List<LinkItem> _primary = [
-    LinkItem<AboutUsPage>(routeName: '/about', pageTitle: 'About Us', iconData: FontAwesomeIcons.info),
-    LinkItem<OurServicesPage>(routeName: '/services', pageTitle: 'Our Services', iconData: FontAwesomeIcons.cogs),
-    LinkItem<ContactUsPage>(routeName: '/contact-us', pageTitle: 'Contact Us', iconData: FontAwesomeIcons.phone),
-    LinkItem<FeesPage>(routeName: '/fees', pageTitle: 'Our Fees', iconData: FontAwesomeIcons.coins),
-    LinkItem<JoinOurTeamPage>(routeName: '/join-our-team', pageTitle: 'Join Our Team', iconData: FontAwesomeIcons.users),
+  static final List<MenuItem> _primary = [
+    MenuItem<AboutUsPage>(routeName: '/about', pageTitle: 'About Us', iconData: FontAwesomeIcons.info),
+    MenuItem<OurServicesPage>(routeName: '/services', pageTitle: 'Our Services', iconData: FontAwesomeIcons.cogs),
+    MenuItem<ContactUsPage>(routeName: '/contact-us', pageTitle: 'Contact Us', iconData: FontAwesomeIcons.phone),
+    MenuItem<FeesPage>(routeName: '/fees', pageTitle: 'Our Fees', iconData: FontAwesomeIcons.coins),
+    MenuItem<JoinOurTeamPage>(routeName: '/join-our-team', pageTitle: 'Join Our Team', iconData: FontAwesomeIcons.users),
   ];
 
-  static final List<LinkItem> _secondary = [
-    LinkItem<BugReportPage>(routeName: '/bug-report', pageTitle: 'Report Bug', iconData: FontAwesomeIcons.bug),
+  static final List<MenuItem> _secondary = [
+    MenuItem<BugReportPage>(routeName: '/bug-report', pageTitle: 'Report Bug', iconData: FontAwesomeIcons.bug),
   ];
 
-  static final List<LinkItem> _tertiary = [
+  static final List<MenuItem> _tertiary = [
 
   ];
 
-  static final List<LinkItem> _implicit = [
-    LinkItem<NotFoundPage>(routeName: '/404', pageTitle: 'Not Found', iconData: FontAwesomeIcons.exclamationTriangle),
+  static final List<MenuItem> _implicit = [
+    MenuItem<NotFoundPage>(routeName: '/404', pageTitle: 'Not Found', iconData: FontAwesomeIcons.exclamationTriangle),
   ];
 
 
   /// The home page.
-  static LinkItem home() => primary().first;
+  static MenuItem home() => primary().first;
 
   /// All the "primary" pages.
-  static List<LinkItem> primary() => _primary;
+  static List<MenuItem> primary() => _primary;
 
   /// All the "secondary" pages.
-  static List<LinkItem> secondary() => _secondary;
+  static List<MenuItem> secondary() => _secondary;
 
   /// All the "tertiary" pages.
-  static List<LinkItem> tertiary() => _tertiary;
+  static List<MenuItem> tertiary() => _tertiary;
 
   /// All the "implicit" pages.
-  static List<LinkItem> implicit() => _implicit;
+  static List<MenuItem> implicit() => _implicit;
 
   /// All the pages.
-  static List<LinkItem> all() => [
+  static List<MenuItem> all() => [
     ...primary(),
     ...secondary(),
     ...tertiary(),
@@ -66,7 +66,7 @@ class Routes {
       // creates something like:
       // <String, Function>{ AbstractPage.pageTitle, () => AbstractPage() }
       Routes.all()
-        .map<MapEntry<String, Widget Function(BuildContext)>>( (LinkItem item) => MapEntry(item.routeName, (BuildContext context) => item.getPage() ))
+        .map<MapEntry<String, Widget Function(BuildContext)>>( (MenuItem item) => MapEntry(item.routeName, (BuildContext context) => item.getPage() ))
     );
 
     return routes;
@@ -75,7 +75,7 @@ class Routes {
 
 
 
-class LinkItem<T extends AbstractPage> {
+class MenuItem<T extends AbstractPage> {
   // Pages are created on Demand. This is important.
   static final Map<Type, AbstractPage Function()> _mapper = {
     AboutUsPage: () => AboutUsPage(),
@@ -98,5 +98,5 @@ class LinkItem<T extends AbstractPage> {
         ..iconData = this.iconData;
   }
 
-  LinkItem({this.pageTitle, this.routeName, this.iconData, this.isClikable = true});
+  MenuItem({this.pageTitle, this.routeName, this.iconData, this.isClikable = true});
 }
