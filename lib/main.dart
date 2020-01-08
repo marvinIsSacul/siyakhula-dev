@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale('en', 'ZA'),
       supportedLocales: [const Locale('en', 'ZA')],
       theme: ThemeData(
-        fontFamily: 'Alegreya',
+      //  fontFamily: 'Alegreya',
         accentColor: ColourHelper.accentPrimary,
         accentColorBrightness: Brightness.dark,
         platform: TargetPlatform.fuchsia
