@@ -82,7 +82,7 @@ class AboutUsPage extends AbstractPage {
         </li>
 
         <li>
-          <b>Customer-cenrtric:</b> we provide a positive customer experience and we value all our customers.
+          <b>Customer-centric:</b> we provide a positive customer experience and we value all our customers.
         </li>
       </ol>
       '''
