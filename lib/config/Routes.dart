@@ -25,7 +25,7 @@ class Routes {
   ];
 
   static final List<MenuItem> _secondary = [
-    MenuItem<BugReportPage>(routeName: '/bug-report', pageTitle: 'Report Bug', iconData: FontAwesomeIcons.bug),
+    //MenuItem<BugReportPage>(routeName: '/bug-report', pageTitle: 'Report Bug', iconData: FontAwesomeIcons.bug),
   ];
 
   static final List<MenuItem> _tertiary = [
