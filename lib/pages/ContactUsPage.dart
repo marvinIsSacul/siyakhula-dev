@@ -38,19 +38,22 @@ class ContactUsPage extends AbstractPage {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         _business(),
+        SizedBox(height: 20.0),
         _social(),
       ]
     );
   }
 
   Widget _forLarge() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        _business(),
-        _social(),
-      ]
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _business(),
+          _social(),
+        ]
+      )
     );
   }
 
@@ -86,8 +89,16 @@ class ContactUsPage extends AbstractPage {
           EnvironmentHelper.appNameShort() + ' OFFICE',
           style: TextStyleHelper.onPageSectionHeading,
         ),
-        _detailsLine(text: EnvironmentHelper.addressPrimary(), icon: FontAwesomeIcons.mapMarkerAlt),
-        _detailsLine(text: EnvironmentHelper.emailSupport(), icon: FontAwesomeIcons.at),
+        _detailsLine(
+          text: EnvironmentHelper.addressPrimary(),
+          icon: FontAwesomeIcons.mapMarkerAlt,
+          url: 'https://www.google.co.za/maps/place/256+Cala+St,+Wedela,+2499/@-26.4590666,27.3805187,17z/data=!3m1!4b1!4m5!3m4!1s0x1e95cfc9ac25dea3:0x43f1a38f43f55911!8m2!3d-26.4590714!4d27.3827074'
+        ),
+        _detailsLine(
+          text: EnvironmentHelper.emailSupport(),
+          icon: FontAwesomeIcons.at,
+          url: 'mailto:' + EnvironmentHelper.emailSupport()
+        ),
         _detailsLine(
           text: EnvironmentHelper.phonePrimary(),
           icon: FontAwesomeIcons.phoneAlt,
@@ -102,7 +113,7 @@ class ContactUsPage extends AbstractPage {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'SOCIAL CONNECTiONS',
+          'SOCIAL CONNECTIONS',
           style: TextStyleHelper.onPageSectionHeading,
         ),
         _detailsLine(text: 'Facebook', url: EnvironmentHelper.appFacebookPageUrl(), icon: FontAwesomeIcons.facebook)

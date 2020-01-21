@@ -10,6 +10,7 @@ import '../pages/abstract/AbstractPage.dart';
 import '../pages/AboutUsPage.dart';
 import '../pages/OurServicesPage.dart';
 import '../pages/BugReportPage.dart';
+import '../helpers/PlatformHelper.dart';
 
 
 /// The app routes.
@@ -17,10 +18,10 @@ class Routes {
 
   static final List<MenuItem> _primary = [
     MenuItem<AboutUsPage>(routeName: '/about', pageTitle: 'About Us', iconData: FontAwesomeIcons.info),
-    MenuItem<OurServicesPage>(routeName: '/services', pageTitle: 'Our Services', iconData: FontAwesomeIcons.cogs),
+    MenuItem<OurServicesPage>(routeName: '/services', pageTitle: 'Our Services', iconData: PlatformHelper.isWeb() ? FontAwesomeIcons.cog : FontAwesomeIcons.cogs),
     MenuItem<ContactUsPage>(routeName: '/contact-us', pageTitle: 'Contact Us', iconData: FontAwesomeIcons.phone),
     MenuItem<FeesPage>(routeName: '/fees', pageTitle: 'Our Fees', iconData: FontAwesomeIcons.coins),
-    MenuItem<JoinOurTeamPage>(routeName: '/join-our-team', pageTitle: 'Join Our Team', iconData: FontAwesomeIcons.users),
+    MenuItem<JoinOurTeamPage>(routeName: '/join-our-team', pageTitle: 'Join Our Team', iconData: PlatformHelper.isWeb() ? FontAwesomeIcons.userAlt : FontAwesomeIcons.users),
   ];
 
   static final List<MenuItem> _secondary = [
