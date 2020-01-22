@@ -10,13 +10,42 @@
   <meta property="og:site_name" content="Siyakhula Development Academy">
   <meta property="og:title" content="Siyakhula Development Academy" />
   <meta property="og:description" content="Mind power at work." />
-  <meta property="og:image" itemprop="image" content="http://siyakhuladev.co.za/assets/assets/img/sda-logo_64.png">
+  <meta property="og:image" itemprop="image" content="http://siyakhuladev.co.za/assets/assets/img/sda-logo.png">
   <meta property="og:type" content="website" />
   <meta property="og:updated_time" content="1575037260" />
 
   <link rel="shortcut icon" href="favicon.ico" />
+
+  <style>
+    body{
+      background: rgb(0, 219, 230, 1);
+      background: -moz-linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(219, 219, 230, 1) 35%, rgba(0, 212, 255, 1) 100%);
+      background: -webkit-linear-gradient(90deg, rgba(255, 255, 255,1) 0%, rgba(219, 219, 230,1) 35%, rgba(0, 212, 255, 1) 100%);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(219, 219, 230, 1) 35%, rgba(0,212,255,1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00d4ff",GradientType=1);
+    }
+
+    #spinnerWrapper {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      color: #111111;
+      text-align: center;
+    }
+
+    #spinner {
+      width: 128px;
+      height: 128px;
+    }
+  </style>
 </head>
 <body>
+  <div id="spinnerWrapper">
+    <h3>Siyakhula Development Academy</h3>
+    <img id="spinner" src="assets/assets/img/spinner.gif" alt="loading..." />
+    <div>Please wait for a few moments😊&hellip;</div>
+  </div>
   <script src="main.dart.js" type="application/javascript"></script>
 </body>
 </html>
