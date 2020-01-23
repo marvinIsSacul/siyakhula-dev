@@ -72,7 +72,7 @@ abstract class AbstractPage extends StatelessWidget {
   @protected
   Widget basicScaffold(BuildContext context, {@required List<Widget> body, String backgroundImage}) {
     return Scaffold(
-        appBar: PlatformHelper.isPhone() ? HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) : null,
+        appBar: PlatformHelper.isLayoutMobile(context) ? HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) : null,
         key: this.scaffoldKey,
         drawer: this.drawer(context),
         body: Builder(
@@ -115,7 +115,7 @@ abstract class AbstractPage extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  if (PlatformHelper.isWeb())
+                  if (!PlatformHelper.isLayoutMobile(context))
                     this.headerAuto(context),
                   if (PlatformHelper.isLayoutDesktop(context))
                     this.menuAuto(context),
@@ -128,11 +128,11 @@ abstract class AbstractPage extends StatelessWidget {
   }
 
   @protected
-  Widget basicScaffoldWithPageIndicator(BuildContext context, List<Widget> pageInidicatorChildren) {
+  Widget basicScaffoldWithPageIndicator(BuildContext context, List<Widget> pageInidicatorChildren, [Widget floatingActionButton]) {
     return Scaffold(
       key: this.scaffoldKey,
       drawer: this.drawer(context),
-      appBar: PlatformHelper.isPhone() ? HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) : null,
+      appBar: PlatformHelper.isLayoutMobile(context) ? HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) : null,
       body: Builder(
         builder: (BuildContext context) =>
           Stack(
@@ -148,7 +148,7 @@ abstract class AbstractPage extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  if (PlatformHelper.isWeb())
+                  if (!PlatformHelper.isLayoutMobile(context))
                     this.headerAuto(context),
                   if (PlatformHelper.isLayoutDesktop(context))
                     this.menuAuto(context),
@@ -157,6 +157,7 @@ abstract class AbstractPage extends StatelessWidget {
             ]
           )
         ),
+        floatingActionButton: floatingActionButton,
         //bottomNavigationBar: ContactUsPage(),
       );
   }

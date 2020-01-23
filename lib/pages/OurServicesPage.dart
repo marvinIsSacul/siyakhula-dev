@@ -57,10 +57,29 @@ class OurServicesPage extends AbstractPage {
 
   @override
   Widget build(BuildContext context) {
-    return this.basicScaffoldWithPageIndicator(context, [
-                  for (_Service service in this._services)
-                    _myService(service, context),
-                ]);
+    return this.basicScaffoldWithPageIndicator(
+              context, [
+                for (_Service service in this._services)
+                  _myService(service, context),
+              ],
+              FloatingActionButton(
+                autofocus: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8))
+                ),
+                onPressed: () async {
+                  this._onRequestService();
+                },
+                child: Container(
+                  padding: EdgeInsets.all(4.0),
+                  width: 400.0,
+                  height: 100.0,
+                  child: FittedBox(
+                    child: Text('Request\nLesson'),
+                  )
+                )
+              )
+            );
   }
 
 
@@ -106,6 +125,10 @@ class OurServicesPage extends AbstractPage {
         )
       )
     );
+  }
+
+  void _onRequestService() {
+    
   }
 }
 

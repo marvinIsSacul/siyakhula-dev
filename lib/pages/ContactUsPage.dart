@@ -72,9 +72,11 @@ class ContactUsPage extends AbstractPage {
           },
         ),
         //Container(margin: EdgeInsets.only(right: 8.0),),
-        SelectableText(
-          text,
-          style: TextStyleHelper.onPageSectionDescription
+        Flexible(
+          child: SelectableText(
+            text,
+            style: TextStyleHelper.onPageSectionDescription
+          )
         )
       ],
     );
