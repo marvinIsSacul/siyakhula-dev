@@ -26,38 +26,38 @@ class ContactUsPage extends AbstractPage {
     
         Container(
           padding: EdgeInsets.symmetric(horizontal: DimensionHelper.spacingSmall),
-          child: PlatformHelper.isLayoutMobile(context) ? this._forSmall() : this._forLarge()
+          child: PlatformHelper.isLayoutMobile(context) ? this._forSmall(context) : this._forLarge(context)
         )  
       ]    
     );
   }
 
-  Widget _forSmall() {
+  Widget _forSmall(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        _business(),
+        _business(context),
         SizedBox(height: 20.0),
-        _social(),
+        _social(context),
       ]
     );
   }
 
-  Widget _forLarge() {
+  Widget _forLarge(BuildContext context) {
     return Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _business(),
-          _social(),
+          _business(context),
+          _social(context),
         ]
       )
     );
   }
 
-  Widget _detailsLine({String text, String url, IconData icon}) {
+  Widget _detailsLine({String text, String url, IconData icon, BuildContext context}) {
     return Row(
       children: <Widget>[
         IconButton(
@@ -72,18 +72,25 @@ class ContactUsPage extends AbstractPage {
           },
         ),
         //Container(margin: EdgeInsets.only(right: 8.0),),
-        Flexible(
-          child: SelectableText(
+        if (PlatformHelper.isLayoutMobile(context))
+          Flexible(
+            flex: 1,
+            child: SelectableText(
+              text,
+              style: TextStyleHelper.onPageSectionDescription
+            )
+          )
+        else
+          SelectableText(
             text,
             style: TextStyleHelper.onPageSectionDescription
           )
-        )
       ],
     );
   }
 
 
-  Widget _business() {
+  Widget _business(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -92,16 +99,19 @@ class ContactUsPage extends AbstractPage {
           style: TextStyleHelper.onPageSectionHeading,
         ),
         _detailsLine(
+          context: context,
           text: EnvironmentHelper.addressPrimary(),
           icon: FontAwesomeIcons.mapMarkerAlt,
           url: 'https://www.google.co.za/maps/place/256+Cala+St,+Wedela,+2499/@-26.4590666,27.3805187,17z/data=!3m1!4b1!4m5!3m4!1s0x1e95cfc9ac25dea3:0x43f1a38f43f55911!8m2!3d-26.4590714!4d27.3827074'
         ),
         _detailsLine(
+          context: context,
           text: EnvironmentHelper.emailSupport(),
           icon: FontAwesomeIcons.at,
           url: 'mailto:' + EnvironmentHelper.emailSupport()
         ),
         _detailsLine(
+          context: context,
           text: EnvironmentHelper.phonePrimary(),
           icon: FontAwesomeIcons.phoneAlt,
           url: 'tel:+27' + EnvironmentHelper.phonePrimary().substring(1).replaceAll('-', '')
@@ -110,7 +120,7 @@ class ContactUsPage extends AbstractPage {
     );
   }
 
-  Widget _social() {
+  Widget _social(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -118,7 +128,12 @@ class ContactUsPage extends AbstractPage {
           'SOCIAL CONNECTIONS',
           style: TextStyleHelper.onPageSectionHeading,
         ),
-        _detailsLine(text: 'Facebook', url: EnvironmentHelper.appFacebookPageUrl(), icon: FontAwesomeIcons.facebook)
+        _detailsLine(
+          context: context,
+          text: 'Facebook',
+          url: EnvironmentHelper.appFacebookPageUrl(),
+          icon: FontAwesomeIcons.facebook
+        )
       ],
     );
   }
