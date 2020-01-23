@@ -65,7 +65,7 @@ class OurServicesPage extends AbstractPage {
               FloatingActionButton(
                 autofocus: true,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8))
+                  borderRadius: BorderRadius.all(Radius.circular(90))
                 ),
                 onPressed: () async {
                   this._onRequestService();
