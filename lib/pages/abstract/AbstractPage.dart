@@ -70,7 +70,7 @@ abstract class AbstractPage extends StatelessWidget {
   }
 
   Widget _mainPageBody(BuildContext context, Widget body) {
-    double width = MediaQuery.of(context).size.width;
+    final double width = MediaQuery.of(context).size.width;
     EdgeInsets padding = EdgeInsets.zero;
     final bool isScreenLargeEnough = PlatformHelper.isScreenExtraLarge(context) || PlatformHelper.isScreenLarge(context);
 
@@ -83,18 +83,30 @@ abstract class AbstractPage extends StatelessWidget {
       decoration: BoxDecoration(
         color: ColourHelper.white,
         shape: BoxShape.circle,
-        boxShadow: [
+        /*gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomLeft,
+          stops: [0.1, 0.5, 0.7, 0.9],
+          colors: [
+            Colors.white10,
+            Colors.white24,
+            Colors.white38,
+            Colors.white54,
+          ]
+        ),*/
+       /* boxShadow: [
           BoxShadow(
             color: ColourHelper.black,
             blurRadius: 20.0
           ),
-        ]
+        ]*/
       ),
       padding: padding,
       child: isScreenLargeEnough ? Card(
         elevation: 2.0,
         child: body,
-      ) : body
+      )
+      : body
     );
   }
 
@@ -103,7 +115,9 @@ abstract class AbstractPage extends StatelessWidget {
     return this._mainPageBody(
       context,
       Scaffold(
-        appBar: PlatformHelper.isLayoutMobile(context) ? HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) : null,
+        appBar: PlatformHelper.isLayoutMobile(context) ?
+            HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) as PreferredSizeWidget
+            : HeaderWebLayout(this.pageTitle, () => this.toggleDrawer(context)) as PreferredSizeWidget,
         key: this.scaffoldKey,
         drawer: this.drawer(context),
         body: Builder(
@@ -146,8 +160,8 @@ abstract class AbstractPage extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  if (!PlatformHelper.isLayoutMobile(context))
-                    this.headerAuto(context),
+                  //if (!PlatformHelper.isLayoutMobile(context))
+                   // this.headerAuto(context),
                   if (PlatformHelper.isLayoutDesktop(context))
                     this.menuAuto(context),
                 ],
@@ -166,7 +180,9 @@ abstract class AbstractPage extends StatelessWidget {
       Scaffold(
       key: this.scaffoldKey,
       drawer: this.drawer(context),
-      appBar: PlatformHelper.isLayoutMobile(context) ? HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) : null,
+      appBar: PlatformHelper.isLayoutMobile(context) ?
+            HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) as PreferredSizeWidget
+            : HeaderWebLayout(this.pageTitle, () => this.toggleDrawer(context)) as PreferredSizeWidget,
       body: Builder(
         builder: (BuildContext context) =>
           Stack(
@@ -182,8 +198,8 @@ abstract class AbstractPage extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  if (!PlatformHelper.isLayoutMobile(context))
-                    this.headerAuto(context),
+                 // if (!PlatformHelper.isLayoutMobile(context))
+                  //  this.headerAuto(context),
                   if (PlatformHelper.isLayoutDesktop(context))
                     this.menuAuto(context),
                 ]
