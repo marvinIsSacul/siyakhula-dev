@@ -69,9 +69,40 @@ abstract class AbstractPage extends StatelessWidget {
         : MenuWebLayout();
   }
 
+  Widget _mainPageBody(BuildContext context, Widget body) {
+    double width = MediaQuery.of(context).size.width;
+    EdgeInsets padding = EdgeInsets.zero;
+    final bool isScreenLargeEnough = PlatformHelper.isScreenExtraLarge(context) || PlatformHelper.isScreenLarge(context);
+
+    if (PlatformHelper.isWeb()) {
+      if (isScreenLargeEnough)
+        padding = EdgeInsets.symmetric(horizontal: width * 0.10);
+    }
+
+    return Container(
+      decoration: BoxDecoration(
+        color: ColourHelper.white,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: ColourHelper.black,
+            blurRadius: 20.0
+          ),
+        ]
+      ),
+      padding: padding,
+      child: isScreenLargeEnough ? Card(
+        elevation: 2.0,
+        child: body,
+      ) : body
+    );
+  }
+
   @protected
   Widget basicScaffold(BuildContext context, {@required List<Widget> body, String backgroundImage}) {
-    return Scaffold(
+    return this._mainPageBody(
+      context,
+      Scaffold(
         appBar: PlatformHelper.isLayoutMobile(context) ? HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) : null,
         key: this.scaffoldKey,
         drawer: this.drawer(context),
@@ -124,12 +155,15 @@ abstract class AbstractPage extends StatelessWidget {
           ]
         )
       )
+    )
     );
   }
 
   @protected
   Widget basicScaffoldWithPageIndicator(BuildContext context, List<Widget> pageInidicatorChildren, [Widget floatingActionButton]) {
-    return Scaffold(
+    return this._mainPageBody(
+      context,
+      Scaffold(
       key: this.scaffoldKey,
       drawer: this.drawer(context),
       appBar: PlatformHelper.isLayoutMobile(context) ? HeaderPhoneLayout(this.pageTitle, () => this.toggleDrawer(context)) : null,
@@ -159,7 +193,8 @@ abstract class AbstractPage extends StatelessWidget {
         ),
         floatingActionButton: floatingActionButton,
         //bottomNavigationBar: ContactUsPage(),
-      );
+      )
+    );
   }
 
   @override
