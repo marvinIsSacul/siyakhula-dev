@@ -1,4 +1,5 @@
 
+import 'package:SiyakhulaDevelopmentAcademy/config/Routes.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -54,6 +55,7 @@ class HeaderWebLayout extends AbstractHeader implements PreferredSizeWidget  {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 for (Links link in Links.all()) _drawLinkItem(link)
+
               ],
             ),
           ),
@@ -126,11 +128,24 @@ class HeaderWebLayout extends AbstractHeader implements PreferredSizeWidget  {
       onTap: () async {
         await launch(linkItem.url);
       },
-      /*onDoubleTap: () async {
-
-      },*/
       child: Icon(
         linkItem.icon,
+        color: ColourHelper.iconPrimary
+      ),
+    )
+  );
+
+  Widget _drawLocalLinkItem(MenuItem linkItem) => Container(
+    padding: EdgeInsets.symmetric(
+      vertical: DimensionHelper.spacingNormal,
+      horizontal: DimensionHelper.spacingSmall
+    ),
+    child: GestureDetector(
+      onTap: () async {
+        
+      },
+      child: Icon(
+        linkItem.getPage().iconData,
         color: ColourHelper.iconPrimary
       ),
     )

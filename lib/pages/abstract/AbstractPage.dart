@@ -111,7 +111,7 @@ abstract class AbstractPage extends StatelessWidget {
   }
 
   @protected
-  Widget basicScaffold(BuildContext context, {@required List<Widget> body, String backgroundImage}) {
+  Widget basicScaffold(BuildContext context, {@required List<Widget> body, String backgroundImage, Widget floatingActionButton}) {
     return this._mainPageBody(
       context,
       Scaffold(
@@ -150,6 +150,7 @@ abstract class AbstractPage extends StatelessWidget {
                           color: ColourHelper.blackTransparent1,
                           elevation: 1.0,
                           child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 8.0),
                             padding: EdgeInsets.only(bottom: 8.0),
                             child: Column(children: body)
                           )
@@ -167,8 +168,9 @@ abstract class AbstractPage extends StatelessWidget {
                 ],
               )
           ]
-        )
-      )
+        ),
+      ),
+      floatingActionButton: floatingActionButton,
     )
     );
   }

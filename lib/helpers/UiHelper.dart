@@ -19,22 +19,29 @@ abstract class UiHelper {
     TextEditingController controller,
     Color hintColour,
     Color textColour,
-    bool obsecure = true,
+    bool obsecure = false,
     int minLines = 1,
     int maxLines = 1,
-    int maxLength
+    int maxLength,
+    String errorText,
+    TextInputType keyboardType = TextInputType.text,
+
     }) {
     return Container(
       padding: EdgeInsets.only(left: 20, right: 20),
       child: TextField(
         controller: controller,
+        
         obscureText: obsecure,
         minLines: minLines,
         maxLines: maxLines,
         maxLength: maxLength,
-        style: TextStyle(fontSize: 20,color: textColour ),
+        keyboardType: keyboardType,
+        style: TextStyle(fontSize: 18, color: textColour ),
         decoration: InputDecoration(
-          hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: hintColour),
+          errorText: errorText,
+          counterStyle: TextStyle(color: textColour),
+          hintStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: hintColour),
           hintText: hint,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
